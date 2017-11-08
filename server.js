@@ -3,6 +3,9 @@ var net = require('net');
 var sockets = [];
 
 var s = net.Server((socket) => {
+    socket.write('-----------------------------------\n');
+    socket.write('----- WELCOME TO BERGELE CHAT -----\n');
+    socket.write('-----------------------------------\n');
     sockets.push(socket);
     
     socket.on('data', (d) => {
@@ -18,4 +21,6 @@ var s = net.Server((socket) => {
     })
 });
 
-s.listen(8080);
+s.listen(8080, () => {
+    console.log('Chat has started!');
+});
