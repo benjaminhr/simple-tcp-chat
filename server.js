@@ -3,11 +3,13 @@ var net = require('net');
 var sockets = [];
 
 var s = net.Server((socket) => {
+    socket.name = socket.remoteAddress + ':' + socket.remotePort;
+    sockets.push(socket);
+
     socket.write('-----------------------------------\n');
     socket.write('----- WELCOME TO BERGELE CHAT -----\n');
     socket.write('-----------------------------------\n');
-    sockets.push(socket);
-    
+
     socket.on('data', (d) => {
         for (var i=0;i<sockets.length;i++) {
             if (sockets[i] == socket) continue;
